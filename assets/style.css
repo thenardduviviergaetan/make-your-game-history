@@ -149,7 +149,7 @@ body{
     z-index: 0;
     margin: 1%;
     top: 30%;
-    /* animation: 2s rotating linear infinite; */
+    animation: 2s rotating linear infinite;
     /*FIXME: DECOMMENTE*/
 }
 @keyframes rotating {

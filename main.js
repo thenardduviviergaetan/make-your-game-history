@@ -190,10 +190,10 @@ function Game(){
         isBossHere = true
     }else if (invaders.length == 0 && waveNb%2 != 0){
         waveNb++
-        wave = new Wave(3,20,false)
-        game.removeChild(game.firstChild)
-        game.appendChild(wave.HTML)
-        // wave.reset()
+        // wave = new Wave(3,20,false)
+        // game.removeChild(game.firstChild)
+        // game.appendChild(wave.HTML)
+        wave.reset()
     }
     //for testing only
     for (let rep = 0; rep < 1; rep++) bullet.shoot();
@@ -239,9 +239,10 @@ let bossHere = setInterval(() => {
             document.getElementById('PROMPT').style.animation = ''
             document.getElementById('PROMPT').style.opacity = '0%'
             Pause = false
-            wave = new Wave(3,20,true)
-            game.removeChild(game.firstChild)
-            game.appendChild(wave.HTML)
+            // wave = new Wave(3,20,true)
+            // game.removeChild(game.firstChild)
+            // game.appendChild(wave.HTML)
+            wave.reset(true)
         }, 3500);
         clearInterval(bossHere)
     }

@@ -44,7 +44,7 @@ class Ennemy {
  * @returns {Class} - All information about the wave gathered in a class
  */
 export class Wave {
-    constructor (nbline,nbinvader,boss){
+    constructor (nbline,nbinvader,ifboss){
         this.nbline = nbline
         nbLine = nbline
         this.nbinvader = nbinvader
@@ -58,17 +58,16 @@ export class Wave {
         this.HTML.style.top =  this.posy+"px";
         this.HTML.style.transform = `translateX(${this.posx}px)`
         let index = 0;
-        this.boss = boss;
+        this.boss = ifboss;
         this.move = true
 
         /** set bosses information if the @param {boolean} boss is set to true  */  
-        if (this.boss === true) {
-            
             index = 4;
             nbline += 4;
             let boss = new Ennemy((nbinvader/2-2)*size,0*size,4,"invader","boss");
             boss.texture.src = '../assets/sprite/BOSS.png'
             this.legion.push(boss);
+        if (this.boss === true) {
             this.HTML.appendChild(boss.HTML);
         }
         // handles the storage of each line of invaders in an array named legion
@@ -156,32 +155,33 @@ export class Wave {
         });
 
     }
-    // reset(){
-    //     if (hp < 3) {
-    //         hp++
-    //     }
-    //     this.posx =  document.getElementById('score').getBoundingClientRect().right;
-    //     this.posy = 0
-    //     let index = -1
-    //     while (this.HTML.firstChild){
-    //         this.HTML.firstChild.remove()
-    //     }
-    //     this.legion.forEach( element => {
-    //         index++
-    //         if (Array.isArray(element)){
-    //             let htmlline = document.createElement("div");
-    //             htmlline.classList.add("line");
-    //             element.forEach(invader => {
-    //                 invader.texture.src = randomize();
-    //                 htmlline.appendChild(invader.HTML);
-    //             })
-    //             this.HTML.appendChild(htmlline)
-    //         }else{
-    //             element.texture.src = randomize();
-    //             this.HTML.appendChild(element.HTML)
-    //         }
-    //     })
-    // }
+    reset(isboss){
+        isboss = (isboss === undefined || !isboss) ? false : true
+        if (hp < 3) {
+            hp++
+        }
+        this.posx =  document.getElementById('score').getBoundingClientRect().right;
+        this.posy = 0
+        let index = -1
+        while (this.HTML.firstChild){
+            this.HTML.firstChild.remove()
+        }
+        this.legion.forEach( element => {
+            index++;
+            if (Array.isArray(element)){
+                let htmlline = document.createElement("div");
+                htmlline.classList.add("line");
+                element.forEach(invader => {
+                    invader.texture.src = randomize();
+                    htmlline.appendChild(invader.HTML);
+                })
+                this.HTML.appendChild(htmlline);
+            }else if (isboss){
+                element.texture.src = '../assets/sprite/BOSS.png';
+                this.HTML.appendChild(element.HTML);
+            }
+        })
+    }
 }
 
 /**
