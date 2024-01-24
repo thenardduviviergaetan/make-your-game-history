@@ -87,7 +87,6 @@ body{
     z-index: 100;
     border-radius: 20px;
     width: 30%;
-    animation: 1s ease-in-out infinite over;
 }
 
 @keyframes over {
@@ -245,7 +244,3 @@ body{
     from { border-color: transparent }
     to { border-color: white; }
   }
-
-
-
-  

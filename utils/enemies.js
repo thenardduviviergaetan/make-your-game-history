@@ -4,6 +4,7 @@ const size = 32;
 let nbLine 
 let hp = 3
 let tabProjectil = new Array()
+let poinpoinpoin = new Audio('../assets/death.mp3')
 /**
  * Class Ennemy is all the infos about each invader and boss
  * @param {number} x - X coordinates of each invader
@@ -61,10 +62,10 @@ export class Wave {
         this.boss = ifboss;
         this.move = true
 
-        /** set bosses information if the @param {boolean} boss is set to true  */  
-            index = 4;
-            nbline += 4;
-            let boss = new Ennemy((nbinvader/2-2)*size,0*size,4,"invader","boss");
+        /**set bosses information if the @param {boolean} boss is set to true*/
+            index = 10;
+            nbline += 10;
+            let boss = new Ennemy((nbinvader/2-5)*size,0,10,"invader","boss");
             boss.texture.src = '../assets/sprite/BOSS.png'
             this.legion.push(boss);
         if (this.boss === true) {
@@ -86,10 +87,40 @@ export class Wave {
         }
     }
 
+    
+/**
+ * It handles the 'blink' animation when the boss is hit
+ * @param {HTMLElement} html - the html element ot make blink
+ */
+    blink(html) {
+        html.style.opacity = '0%'
+        setTimeout(() => {
+            html.style.opacity = '100%'
+                setTimeout(() => {
+                    html.style.opacity = '0%'
+                        setTimeout(() => {
+                        html.style.opacity = '100%'
+                        setTimeout(() => {
+                            html.style.opacity = '0%'
+                            setTimeout(() => {
+                                html.style.opacity = '100%'
+                                setTimeout(() => {
+                                    html.style.opacity = '0%'
+                                    setTimeout(() => {
+                                        html.style.opacity = '100%'
+                                            html.classList.toggle('god')
+                                    }, 250);
+                                }, 250);
+                            }, 250);
+                        }, 250);
+                    }, 250);
+                }, 250);
+        }, 250);
+    }
+
     /**
-     * Handles the 'tick' of the entire legion across the screen, once it has reached the border of the screen,
-     * it goes down a certain number of pixels and continue its route until it reaches the dead line, then its Game Over
-    */
+     * Some initialization for performance and layout optimization
+     */
 
     overinit(){
         let over = document.createElement('img')
@@ -106,6 +137,13 @@ export class Wave {
         bprompt.style.opacity = '0%'
         document.getElementById('BOSS_PROMPT').appendChild(bprompt)
     }
+
+
+    /**
+     * Handles the 'tick' of the entire legion across the screen, once it has reached the border of the screen,
+     * it goes down a certain number of pixels and continue its route until it reaches the dead line, then its Game Over
+    */
+
    tick(){
         if (!this.move) {
             return
@@ -123,9 +161,12 @@ export class Wave {
         document.getElementById('hp').textContent = `Hp : ${hp}`
         let shipborder = document.getElementById('ship').getBoundingClientRect()
         // if (this.posy + size >= 500 || this.boss && this.posy + size*4 >= 500|| hp == 0 ){
-        if (bottom >= shipborder.top /*|| hp == 0*/ ){
+        if (bottom >= shipborder.top /*|| hp == 0 FIXME: REMET CA*/ ){
             let over = document.getElementById('over')
+            over.style.animation = '1s ease-in-out infinite over'
             over.style.opacity = '100%'
+            poinpoinpoin.load()
+            poinpoinpoin.play()
             return true
         }
         // if (this.posx+2*size >= window.innerWidth-(this.nbinvader-2)*size || this.posx < document.getElementById('score').getBoundingClientRect().right){
@@ -156,10 +197,16 @@ export class Wave {
         });
 
     }
+
+    /**
+     * It reset the wave by re-using the memory to avoid memory jank, optimization at its finest
+     * @param {Boolean} isboss - whether or not there is a boss in the wave
+     */
     reset(isboss){
         isboss = (isboss === undefined || !isboss) ? false : true
         if (hp < 3) {
-            hp++
+            hp+=2
+            //TODO: DECALAGE BOSS A REGLER, et le boss doit tirer
         }
         this.posx =  document.getElementById('score').getBoundingClientRect().right;
         this.posy = 0
@@ -191,8 +238,8 @@ export class Wave {
  * @param {Class} posy - The shooter, where the projectile will be shot 
  * @returns {HTMLDivElement} - The projectile foramtted as a div
  */
-class InvaderProjectile {
-    constructor(posx,posy){
+class InvaderProjectile{
+     constructor (posx,posy){
         this.x = posx+size/2
         this.y = posy - (size/2)*nbLine
         this.HTML = document.createElement('div')
@@ -219,29 +266,7 @@ class InvaderProjectile {
             ship.classList.toggle('god')
             hp--
             this.HTML.remove()
-            ship.style.opacity = '0%'
-            setTimeout(() => {
-                ship.style.opacity = '100%'
-                    setTimeout(() => {
-                        ship.style.opacity = '0%'
-                            setTimeout(() => {
-                            ship.style.opacity = '100%'
-                            setTimeout(() => {
-                                ship.style.opacity = '0%'
-                                setTimeout(() => {
-                                    ship.style.opacity = '100%'
-                                    setTimeout(() => {
-                                        ship.style.opacity = '0%'
-                                        setTimeout(() => {
-                                            ship.style.opacity = '100%'
-                                                ship.classList.toggle('god')
-                                        }, 250);
-                                    }, 250);
-                                }, 250);
-                            }, 250);
-                        }, 250);
-                    }, 250);
-            }, 250);
+            new Wave(0,0,0,0).blink(ship)
             return true
         }
     }

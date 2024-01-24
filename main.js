@@ -11,7 +11,7 @@ let rightPressed,leftPressed
 let movements = []
 let waveNb = 1
 let ship = new Ship
-let wave = new Wave(1,5,false) // pas moins de 5
+let wave = new Wave(1,10,true) // need to be more or equal to boss size
 const Port = "5500"
 let audio = new Audio('./assets/music.mp3')
 audio.volume =0.5
@@ -19,20 +19,24 @@ let shotSound = new Audio('./assets/shoot.wav')
 shotSound.volume = 0.5
 let r = new Audio('./assets/boom.mp3')
 r.volume = 1
+
 const hertzChecker =  (Hz)=> {
-    let movementShip,movementWave,ennemyShot
+    let movementShip,movementWave,ennemyShot,movementShot
         if (Hz == 60) {
                 movementShip = 7
                 movementWave = 2
                 ennemyShot = 3
+                movementShot = 7
         } else if (Hz == 240) {
                 movementShip = 1.5
                 movementWave = 0.8
                 ennemyShot = 0.75
+                movementShot = 1.5
         } else if (Hz == 144){
                 movementShip = 3
                 movementWave = 1.2
                 ennemyShot = 1.5
+                movementShot = 3
         }
         let int = setInterval(() => {
             if (movementShip !== undefined && movementWave !== undefined &&movementShip !== '' && movementWave !== '' ) {
@@ -40,6 +44,7 @@ const hertzChecker =  (Hz)=> {
                 movements.push(movementShip)
                 movements.push(movementWave)
                 movements.push(ennemyShot)
+                movements.push(movementShot)
                 fps = true
             }
         },1);
@@ -185,6 +190,10 @@ function Game(){
     if (waveNb%2 != 0 && invaders.length == 0 && Pause == false) {
         waveNb++
         Pause = true
+        movements[0]+=0.2
+        movements[1]+=1
+        movements[2]+=1
+        movements[3]+=0.5
         document.getElementById('PROMPT').style.animation = 'typing 3s steps(29)  normal both, blink .8s infinite normal'
         document.getElementById('PROMPT').style.opacity = '100%'
         throttle(setTimeout(() => {
@@ -195,6 +204,10 @@ function Game(){
         }, 3500),4000,true)
         
     }else if (invaders.length == 0 && waveNb%2 == 0 && Pause == false){
+        movements[0]+=0.2
+        movements[1]+=1
+        movements[2]+=1
+        movements[3]+=0.5
         waveNb++
         wave.reset()
     }
