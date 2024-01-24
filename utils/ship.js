@@ -1,7 +1,7 @@
 import { wave,Port,movements } from "../main.js"
 let border
 let score = 0
-let tab = [`http://127.0.0.1:5500/assets/sprite/saucer1b.ico`,`http://127.0.0.1:5500/assets/sprite/saucer2b.ico`,`http://127.0.0.1:5500/assets/sprite/saucer3b.ico`]
+let tab = [`http://127.0.0.1:5500/assets/sprite/saucer1b.ico`,`http://127.0.0.1:5500/assets/sprite/saucer2b.ico`,`http://127.0.0.1:5500/assets/sprite/saucer3b.ico`,'http://127.0.0.1:5500/assets/sprite/BOSS.png']
 let explodeSound = new Audio('./assets/explosion.mp3')
 explodeSound.volume = 1
 let shotSound = new Audio('./assets/shoot.wav')

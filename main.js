@@ -1,24 +1,24 @@
 import {Ship,Projectile,score} from "./utils/ship.js";
 import { Wave } from "./utils/enemies.js";
-import { menuInit} from "./utils/utilsFunc.js";
+import { menuInit, throttle} from "./utils/utilsFunc.js";
 import { loadScreen,bool,Hz} from "./utils/loadScreen.js";
 // import { getScreenRefreshRate } from "./utils/requestHz.js";
 //TODO: FAIRE DES BONUS DE RAPID FIRE (on rajoute des shoot()) et rapid movement on rajoute des moveship() ET UN KONAMI CODE
 //** Initialization of all the global variables */
 let Pause = false
 let fps = false
-let isBoss = false
 let rightPressed,leftPressed
 let movements = []
 let waveNb = 1
 let ship = new Ship
-let wave = new Wave(1,14,isBoss)
+let wave = new Wave(1,5,false) // pas moins de 5
 const Port = "5500"
 let audio = new Audio('./assets/music.mp3')
 audio.volume =0.5
 let shotSound = new Audio('./assets/shoot.wav')
 shotSound.volume = 0.5
 let r = new Audio('./assets/boom.mp3')
+r.volume = 1
 const hertzChecker =  (Hz)=> {
     let movementShip,movementWave,ennemyShot
         if (Hz == 60) {
@@ -167,7 +167,6 @@ const pauseMenu = ()=> {
         if (document.getElementById('menu') !== null)document.getElementById('menu').style.opacity = '0%'
     }
 }
-let isBossHere = false
 wave.bossInit()
 wave.overinit()
 /** 
@@ -182,17 +181,21 @@ function Game(){
     }
     //FIXME: waveNb % qui ne marche pas
     let invaders = document.querySelectorAll('.invader')
-    if (invaders.length == 0 && Pause == false) waveNb++
-    if (waveNb%2 ==0 && invaders.length == 0) {
+     
+    if (waveNb%2 != 0 && invaders.length == 0 && Pause == false) {
+        waveNb++
         Pause = true
         document.getElementById('PROMPT').style.animation = 'typing 3s steps(29)  normal both, blink .8s infinite normal'
         document.getElementById('PROMPT').style.opacity = '100%'
-        isBossHere = true
-    }else if (invaders.length == 0 && waveNb%2 != 0){
+        throttle(setTimeout(() => {
+            document.getElementById('PROMPT').style.animation = ''
+            document.getElementById('PROMPT').style.opacity = '0%'
+            Pause = false
+            wave.reset(true)
+        }, 3500),4000,true)
+        
+    }else if (invaders.length == 0 && waveNb%2 == 0 && Pause == false){
         waveNb++
-        // wave = new Wave(3,20,false)
-        // game.removeChild(game.firstChild)
-        // game.appendChild(wave.HTML)
         wave.reset()
     }
     //for testing only
@@ -223,6 +226,7 @@ document.addEventListener('keydown',(e) => {
     if (e.keyCode === k[n++]) {
         if (n === k.length) {
             audio.pause()
+            
             r.play()
             n = 0;
             return false;
@@ -232,21 +236,6 @@ document.addEventListener('keydown',(e) => {
         n = 0;
     }
 });
-
-let bossHere = setInterval(() => {
-    if (isBossHere) {
-        setTimeout(() => {
-            document.getElementById('PROMPT').style.animation = ''
-            document.getElementById('PROMPT').style.opacity = '0%'
-            Pause = false
-            // wave = new Wave(3,20,true)
-            // game.removeChild(game.firstChild)
-            // game.appendChild(wave.HTML)
-            wave.reset(true)
-        }, 3500);
-        clearInterval(bossHere)
-    }
-}, 500);
 
 
 export {wave,Port,movements}

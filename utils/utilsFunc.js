@@ -1,3 +1,25 @@
+/**
+ * Throttles a function to limit the rate at which it is called.
+ * @param {Function} f - The function to be throttled.
+ * @param {number} delay - The delay in milliseconds between function calls.
+ * @param {Object} options - The options for throttling.
+ * @param {boolean} options.leading - Whether to allow the leading function call.
+ * @param {boolean} options.trailing - Whether to allow the trailing function call.
+ * @returns {Function} - The throttled function.
+ */
+const throttle = (f, delay, { leading = false, trailing = false } = {}) => {
+    let flag = false
+    return (...args) => {
+        if (!flag) {
+            if (leading) f(...args)
+            flag = true
+            setTimeout(() => {
+                flag = false
+                if (trailing && !(leading)) f(...args)
+            }, delay)
+        }
+    }
+}
 
 const menuInit = ()=> {
     let menu = document.createElement('div')
@@ -28,4 +50,4 @@ const randomize = () => {
 }
 
 
-export {menuInit,randomize}
+export {menuInit,randomize,throttle}

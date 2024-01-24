@@ -97,6 +97,7 @@ export class Wave {
             over.id = 'over'
             over.style.opacity = '0%'
             document.body.appendChild(over)
+            
     }
     bossInit(){
         let bprompt = document.createElement('p')
