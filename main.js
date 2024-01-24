@@ -211,6 +211,7 @@ let loaded = setInterval(() => {
             audio.loop = true
                     audio.volume =0.5
                     audio.play()
+                    shotSound.play()
                     Pause = !Pause
                     if (document.getElementById('load') != null) document.getElementById('load').remove()
                     Game()
