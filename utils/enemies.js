@@ -68,9 +68,11 @@ export class Wave {
             let boss = new Ennemy((nbinvader/2-5)*size,0,10,"invader","boss");
             boss.texture.src = '../assets/sprite/BOSS.png'
             this.legion.push(boss);
-        if (this.boss === true) {
-            this.HTML.appendChild(boss.HTML);
-        }
+            if (this.boss === true) {
+                this.HTML.appendChild(boss.HTML);
+            }else{
+                this.HTML.style.top =  -10*size+"px";
+            }
         // handles the storage of each line of invaders in an array named legion
         for (index;index < nbline;index++) {
             let line = new(Array);
@@ -226,7 +228,10 @@ export class Wave {
                 this.HTML.appendChild(htmlline);
             }else if (isboss){
                 element.texture.src = '../assets/sprite/BOSS.png';
+                this.HTML.style.top =  0+"px";
                 this.HTML.appendChild(element.HTML);
+            }else{
+                this.HTML.style.top =  -10*size+"px";
             }
         })
     }

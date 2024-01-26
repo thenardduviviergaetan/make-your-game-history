@@ -11,7 +11,7 @@ let rightPressed,leftPressed
 let movements = []
 let waveNb = 1
 let ship = new Ship
-let wave = new Wave(1,10,true) // need to be more or equal to boss size
+let wave = new Wave(4,10,false) // need to be more or equal to boss size
 const Port = "5500"
 let audio = new Audio('./assets/music.mp3')
 audio.volume =0.5
