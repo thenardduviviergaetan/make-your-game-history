@@ -130,7 +130,14 @@ export class Wave {
             over.id = 'over'
             over.style.opacity = '0%'
             document.body.appendChild(over)
-            
+            let overPrompt = document.createElement('div')
+            overPrompt.id = 'gameOver'
+            let  overPromptP = document.createElement('p')
+            overPromptP.id = 'gameOverP'
+            overPromptP.textContent = "You FAILED ! You're not worthy of our respect... GO BACK TO HEADQUARTERS !"
+            overPrompt.style.opacity = '0%'
+            overPrompt.appendChild(overPromptP)
+            document.body.appendChild(overPrompt)
     }
     bossInit(){
         let bprompt = document.createElement('p')
@@ -163,7 +170,7 @@ export class Wave {
         document.getElementById('hp').textContent = `Hp : ${hp}`
         let shipborder = document.getElementById('ship').getBoundingClientRect()
         // if (this.posy + size >= 500 || this.boss && this.posy + size*4 >= 500|| hp == 0 ){
-        if (bottom >= shipborder.top /*|| hp == 0 FIXME: REMET CA*/ ){
+        if (bottom >= shipborder.top || hp == 0 ){
             let over = document.getElementById('over')
             over.style.animation = '1s ease-in-out infinite over'
             over.style.opacity = '100%'
@@ -175,7 +182,7 @@ export class Wave {
         // if (this.HTML.getBoundingClientRect().right >= window.innerWidth-(this.nbinvader-2)*size || this.HTML.getBoundingClientRect().left < document.getElementById('score').getBoundingClientRect().right){
         if (right >= window.innerWidth || left < document.getElementById('score').getBoundingClientRect().right){
             this.right = !this.right
-            this.posy += 10
+            this.posy += 20
         }
         this.posx += this.right ? movements[1] : -movements[1]
         this.HTML.style.transform = `translate(${this.posx}px,${this.posy}px)`
@@ -208,7 +215,6 @@ export class Wave {
         isboss = (isboss === undefined || !isboss) ? false : true
         if (hp < 3) {
             hp+=2
-            //TODO: DECALAGE BOSS A REGLER, et le boss doit tirer
         }
         this.posx =  document.getElementById('score').getBoundingClientRect().right;
         this.posy = 0

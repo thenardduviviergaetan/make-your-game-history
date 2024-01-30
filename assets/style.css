@@ -149,7 +149,6 @@ body{
     margin: 1%;
     top: 30%;
     animation: 2s rotating linear infinite;
-    /*FIXME: DECOMMENTE*/
 }
 @keyframes rotating {
     from {
@@ -243,4 +242,32 @@ body{
   @keyframes blink {
     from { border-color: transparent }
     to { border-color: white; }
+  }
+
+
+#gameOver{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    position: absolute;
+    width: 40%;
+    height:25%;
+    background-color: rgba(117, 198, 242, 0.263);
+    align-self: center;
+    bottom: 2%;
+    word-break: break-all;
+    border-radius: 12px;
+}
+
+#gameOverP{
+    white-space: nowrap;
+    width: 78ch;
+    color: white;
+    overflow: hidden;
+    margin:5%;
+}
+
+@keyframes typing1 {
+    from { width: 0 }
+    to { width: 78ch }
   }

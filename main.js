@@ -2,8 +2,6 @@ import {Ship,Projectile,score} from "./utils/ship.js";
 import { Wave } from "./utils/enemies.js";
 import { menuInit, throttle} from "./utils/utilsFunc.js";
 import { loadScreen,bool,Hz} from "./utils/loadScreen.js";
-// import { getScreenRefreshRate } from "./utils/requestHz.js";
-//TODO: FAIRE DES BONUS DE RAPID FIRE (on rajoute des shoot()) et rapid movement on rajoute des moveship() ET UN KONAMI CODE
 //** Initialization of all the global variables */
 let Pause = false
 let fps = false
@@ -11,7 +9,7 @@ let rightPressed,leftPressed
 let movements = []
 let waveNb = 1
 let ship = new Ship
-let wave = new Wave(4,10,false) // need to be more or equal to boss size
+let wave = new Wave(1,10,false) // need to be more or equal to boss size
 const Port = "5500"
 let audio = new Audio('./assets/music.mp3')
 audio.volume =0.5
@@ -180,11 +178,16 @@ wave.overinit()
 function Game(){
     // if this is a game over
     if (wave.tick()){
+        audio.pause()
+       let overPrompt =  document.getElementById('gameOver')
+       let overPromptP =  document.getElementById('gameOverP')
+       overPrompt.style.animation = '2s fade ease-in'
+       overPrompt.style.opacity = '100%'
+        overPromptP.style.animation = ' 4s typing1 ease-in'
         Pause = true
         pauseMenu()
         document.getElementById('resume').style.opacity = '0%'
     }
-    //FIXME: waveNb % qui ne marche pas
     let invaders = document.querySelectorAll('.invader')
      
     if (waveNb%2 != 0 && invaders.length == 0 && Pause == false) {
