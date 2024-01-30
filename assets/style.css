@@ -80,6 +80,7 @@ body{
     word-wrap: break-word;
 }
 #over{
+    will-change: transform,background-color;
     color: white;
     position: absolute;
     top: 25px;
@@ -122,9 +123,12 @@ body{
     top: 0;
     z-index: 1000;
 }
-
+.invader{
+    will-change: opacity,transform;
+}
 
 #intro{
+    will-change: width;
     width: 40%;
     height: 30%;
     background-image: url(./invaders.png);
@@ -144,6 +148,7 @@ body{
 }
 
 #asteroid{
+    will-change: transform;
     width: 10%;
     z-index: 0;
     margin: 1%;
@@ -180,6 +185,7 @@ body{
 }
 
 #play{
+    will-change: opacity;
     margin-top: 10%;
     width: 12%;
     height: 3%;

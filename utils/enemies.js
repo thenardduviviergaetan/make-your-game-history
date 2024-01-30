@@ -129,12 +129,14 @@ export class Wave {
             over.src = './assets/game-over.png'
             over.id = 'over'
             over.style.opacity = '0%'
+            over.style.willChange = 'opacity'
             document.body.appendChild(over)
             let overPrompt = document.createElement('div')
             overPrompt.id = 'gameOver'
             let  overPromptP = document.createElement('p')
             overPromptP.id = 'gameOverP'
             overPromptP.textContent = "You FAILED ! You're not worthy of our respect... GO BACK TO HEADQUARTERS !"
+            overPrompt.style.willChange = 'opacity'
             overPrompt.style.opacity = '0%'
             overPrompt.appendChild(overPromptP)
             document.body.appendChild(overPrompt)
@@ -143,6 +145,7 @@ export class Wave {
         let bprompt = document.createElement('p')
         bprompt.id = 'PROMPT'
         bprompt.textContent = 'WAIT ! Something is coming...'
+        bprompt.style.willChange = 'opacity'
         bprompt.style.opacity = '0%'
         document.getElementById('BOSS_PROMPT').appendChild(bprompt)
     }

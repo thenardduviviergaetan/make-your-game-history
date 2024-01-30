@@ -55,6 +55,7 @@ class Projectile {
         this.HTML.style.height = '14px'
         this.HTML.style.transform = `translateX(${this.x}px)`
         this.HTML.style.bottom = `${this.y}px`
+        // this.bullets = new Array()
     }
 
 
