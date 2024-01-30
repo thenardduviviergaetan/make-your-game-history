@@ -55,7 +55,6 @@ class Projectile {
         this.HTML.style.height = '14px'
         this.HTML.style.transform = `translateX(${this.x}px)`
         this.HTML.style.bottom = `${this.y}px`
-        // this.bullets = new Array()
     }
 
 
@@ -64,16 +63,10 @@ class Projectile {
  * @param {HTMLElement} html - the html element ot make blink
  */
     blink(html) {
-        html.style.opacity = '0%'
+        html.style.animation = '750ms blink ease-in-out'
         setTimeout(() => {
-            html.style.opacity = '100%'
-                setTimeout(() => {
-                    html.style.opacity = '0%'
-                        setTimeout(() => {
-                        html.style.opacity = '100%'
-                    }, 250);
-                }, 250);
-        }, 250);
+        html.style.animation = ''
+        }, 750);
     }
 
 /**
@@ -84,7 +77,7 @@ class Projectile {
         //TODO: mettre des sons à boss qui meurt,tir et game over
         let invaders = document.querySelectorAll('.invader')
         if (wave.move) {
-             invaders.forEach(elem=> {
+            invaders.forEach(elem=> {
                 if (elem != null){
                     border = elem.getBoundingClientRect()
                 }

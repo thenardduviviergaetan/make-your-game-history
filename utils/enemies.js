@@ -95,29 +95,11 @@ export class Wave {
  * @param {HTMLElement} html - the html element ot make blink
  */
     blink(html) {
-        html.style.opacity = '0%'
+        html.style.animation = '3s blink ease-in-out'
         setTimeout(() => {
-            html.style.opacity = '100%'
-                setTimeout(() => {
-                    html.style.opacity = '0%'
-                        setTimeout(() => {
-                        html.style.opacity = '100%'
-                        setTimeout(() => {
-                            html.style.opacity = '0%'
-                            setTimeout(() => {
-                                html.style.opacity = '100%'
-                                setTimeout(() => {
-                                    html.style.opacity = '0%'
-                                    setTimeout(() => {
-                                        html.style.opacity = '100%'
-                                            html.classList.toggle('god')
-                                    }, 250);
-                                }, 250);
-                            }, 250);
-                        }, 250);
-                    }, 250);
-                }, 250);
-        }, 250);
+            html.classList.toggle('god')
+            html.style.animation = ''
+        }, 3000);
     }
 
     /**

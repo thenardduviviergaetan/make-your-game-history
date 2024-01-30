@@ -80,7 +80,6 @@ body{
     word-wrap: break-word;
 }
 #over{
-    will-change: transform,background-color;
     color: white;
     position: absolute;
     top: 25px;
@@ -128,7 +127,6 @@ body{
 }
 
 #intro{
-    will-change: width;
     width: 40%;
     height: 30%;
     background-image: url(./invaders.png);
@@ -148,7 +146,6 @@ body{
 }
 
 #asteroid{
-    will-change: transform;
     width: 10%;
     z-index: 0;
     margin: 1%;
@@ -185,7 +182,6 @@ body{
 }
 
 #play{
-    will-change: opacity;
     margin-top: 10%;
     width: 12%;
     height: 3%;
@@ -277,3 +273,26 @@ body{
     from { width: 0 }
     to { width: 78ch }
   }
+
+
+
+@keyframes blink{
+    from{
+        opacity:0%
+    }
+    20%{
+        opacity: 100%;
+    }
+    40%{
+        opacity: 0%;
+    }
+    60%{
+        opacity: 100%;
+    }
+    80%{
+        opacity: 0%;
+    }
+    to{
+        opacity: 100%;
+    }
+}
